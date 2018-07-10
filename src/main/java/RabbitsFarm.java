@@ -5,6 +5,7 @@ class RabbitsFarm {
     private List<Rabbit> maleRabbits = new ArrayList<>();
     private List<Rabbit> femaleRabbits = new ArrayList<>();
     private List<Rabbit> tempFemaleRabbits = new ArrayList<>();
+    private List<Rabbit> deathRabbits = new ArrayList<>();
     private int months;
 
     private void createFemaleRabbit() {
@@ -30,13 +31,13 @@ class RabbitsFarm {
             createMaleRabbit();
         }
         for (int i = 0; femaleRabbits.size() + maleRabbits.size() <= limit; i++) {
-            months = i;
             for (Rabbit rabbit : femaleRabbits) {
                 rabbit.age++;
             }
             for (Rabbit rabbit : maleRabbits) {
                 rabbit.age++;
                 if (rabbit.age >= 96) {
+                    deathRabbits.add(rabbit);
                     maleRabbits.remove(rabbit);
                 }
             }
@@ -50,14 +51,17 @@ class RabbitsFarm {
                     }
                 }
                 if (rabbit.age == 96) {
+                    deathRabbits.add(rabbit);
                     femaleRabbits.remove(rabbit);
                 }
             }
             femaleRabbits.addAll(tempFemaleRabbits);
             tempFemaleRabbits.clear();
+            months = i+1;
             System.out.println("female: " + femaleRabbits.size());
             System.out.println("male: " + maleRabbits.size());
         }
+        System.out.println("Number of death rabbits: " + deathRabbits.size());
         return months;
     }
 }

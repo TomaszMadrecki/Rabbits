@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 public class RabbitFarmTest {
 
-    RabbitsFarm rabbitsFarm = new RabbitsFarm();
+    private RabbitsFarm rabbitsFarm = new RabbitsFarm();
 
     @Test
     public void given_RabbitsFarm_When_SimulateReproduce_Then_ReturnMonthsToReachLimit() {
-        assertEquals(4, rabbitsFarm.simulate(1,3,100));
+        assertEquals(5, rabbitsFarm.simulate(1,3,100));
     }
 
     @Test
