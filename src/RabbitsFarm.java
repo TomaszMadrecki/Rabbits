@@ -1,25 +1,25 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class RabbitsFarm {
-    public List<Rabbit> maleRabbits = new ArrayList<>();
-    public List<Rabbit> femaleRabbits = new ArrayList<>();
-    public List<Rabbit> tempFemaleRabbits = new ArrayList<>();
-    public int months;
+class RabbitsFarm {
+    private List<Rabbit> maleRabbits = new ArrayList<>();
+    private List<Rabbit> femaleRabbits = new ArrayList<>();
+    private List<Rabbit> tempFemaleRabbits = new ArrayList<>();
+    private int months;
 
-    public void createFemaleRabbit() {
+    private void createFemaleRabbit() {
         femaleRabbits.add(new Rabbit(0, Sex.FEMALE));
     }
 
-    public void tempCreateFemaleRabbit() {
+    private void tempCreateFemaleRabbit() {
         tempFemaleRabbits.add(new Rabbit(0, Sex.FEMALE));
     }
 
-    public void createMaleRabbit() {
+    private void createMaleRabbit() {
         maleRabbits.add(new Rabbit(0, Sex.MALE));
     }
 
-    public int simulate(int maleCount, int femaleCount, long limit) {
+    int simulate(int maleCount, int femaleCount, long limit) {
         for (int i = 0; i < femaleCount; i++) {
             createFemaleRabbit();
         }
@@ -33,9 +33,15 @@ public class RabbitsFarm {
             }
             for (Rabbit rabbit : maleRabbits) {
                 rabbit.age++;
+                if (rabbit.age >= 96) {
+                    maleRabbits.remove(rabbit);
+                }
             }
             for (Rabbit rabbit : femaleRabbits) {
-                if (rabbit.age >= 4 && rabbit.age < 96) {
+                if (rabbit.age >= 96) {
+                    femaleRabbits.remove(rabbit);
+                }
+                if (rabbit.age >= 4) {
                     for (int j = 0; j < 14; j++) {
                         tempCreateFemaleRabbit();
                     }
@@ -45,8 +51,9 @@ public class RabbitsFarm {
                 }
             }
             femaleRabbits.addAll(tempFemaleRabbits);
+            tempFemaleRabbits.clear();
+
         }
         return months;
     }
-
 }

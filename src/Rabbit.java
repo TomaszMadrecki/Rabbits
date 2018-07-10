@@ -1,9 +1,8 @@
-public class Rabbit {
+class Rabbit {
     int age;
-    Enum sex;
-    int months;
+    private Enum sex;
 
-    public Rabbit(int age, Enum sex) {
+    Rabbit(int age, Enum sex) {
         this.age = age;
         this.sex = sex;
     }
