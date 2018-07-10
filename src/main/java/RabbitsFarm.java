@@ -20,6 +20,9 @@ class RabbitsFarm {
     }
 
     int simulate(int maleCount, int femaleCount, long limit) {
+        if (femaleCount == 0) {
+            return 0;
+        }
         for (int i = 0; i < femaleCount; i++) {
             createFemaleRabbit();
         }
@@ -38,9 +41,6 @@ class RabbitsFarm {
                 }
             }
             for (Rabbit rabbit : femaleRabbits) {
-                if (rabbit.age >= 96) {
-                    femaleRabbits.remove(rabbit);
-                }
                 if (rabbit.age >= 4) {
                     for (int j = 0; j < 14; j++) {
                         tempCreateFemaleRabbit();
@@ -49,10 +49,14 @@ class RabbitsFarm {
                         createMaleRabbit();
                     }
                 }
+                if (rabbit.age == 96) {
+                    femaleRabbits.remove(rabbit);
+                }
             }
             femaleRabbits.addAll(tempFemaleRabbits);
             tempFemaleRabbits.clear();
-
+            System.out.println("female: " + femaleRabbits.size());
+            System.out.println("male: " + maleRabbits.size());
         }
         return months;
     }
